@@ -45,7 +45,7 @@ function [precision, fps] = run_tracker(video, kernel_type, feature_type, show_v
 
 	%default settings
 	if nargin < 1, video = 'choose'; end
-	if nargin < 2, kernel_type = 'linear'; end
+	if nargin < 2, kernel_type = 'gaussian'; end
     if nargin < 3, feature_type = 'hog'; end
 	if nargin < 4, show_visualization = ~strcmp(video, 'all'); end
 	if nargin < 5, show_plots = ~strcmp(video, 'all'); end
@@ -75,13 +75,13 @@ function [precision, fps] = run_tracker(video, kernel_type, feature_type, show_v
     features.pca_dim = 17;
     
     %swc 拼接特征设置
-    features.cat_feature = true;
+    features.cat_feature = false;
     features.cat_feature_type = 'cn';
     features.cat_feature_pca = false;
     features.cat_feature_pca_dim = 2;
 
     
-	padding = 2.5;  %extra area surrounding the target
+	padding = 1.5;  %extra area surrounding the target
 	lambda = 1e-4;  %regularization
 	output_sigma_factor = 0.1;  %spatial bandwidth (proportional to target)
 	

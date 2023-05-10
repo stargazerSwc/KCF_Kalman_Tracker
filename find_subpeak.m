@@ -10,6 +10,10 @@ function [vert_delta, horiz_delta] = find_subpeak(response)
     if max_v == floor(size(response_orig,2)/ 2)+1
         % 防止静止震荡
         vert_delta = 1;
+        % 中心也计算亚像素
+%         neighboor_idx = (max_v-1):(max_v+1);
+%         neighboor_v = response_orig(max_h,(max_v-1):(max_v+1));
+%         vert_delta = sub_peak(neighboor_v,neighboor_idx) - floor(size(response_orig,2)/ 2);
     elseif (max_v == size(response_orig,2)) || (max_v == 1)
         disp(['max at edge']);
         vert_delta = max_v - floor(size(response_orig,2)/ 2) + 1;
@@ -20,7 +24,12 @@ function [vert_delta, horiz_delta] = find_subpeak(response)
     end
     
     if max_h == floor(size(response_orig,1)/ 2)+1
+        % 防止静止震荡
         horiz_delta = 1;
+        % 中心也计算亚像素
+%         neighboor_idx = (max_h-1):(max_h+1);
+%         neighboor_h = response_orig((max_h-1):(max_h+1),max_v);
+%         horiz_delta = sub_peak(neighboor_h,neighboor_idx) - floor(size(response_orig,1)/ 2);
     elseif (max_h == size(response_orig,1)) || (max_h == 1)
         disp(['max at edge']);
         horiz_delta = max_h - floor(size(response_orig,1)/ 2) + 1;

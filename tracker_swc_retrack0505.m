@@ -126,7 +126,7 @@ function [positions, time] = tracker_swc_retrack0505(video_path, img_files, pos,
     tracker_fail = false; 
     kalman_flag = true; %kalman开关
     kalman_status = false; %kalman状态
-    kalman_use_flag = true; %是否使用kalman滤波结果
+    kalman_use_flag = false; %是否使用kalman滤波结果
     speed = [0, 0];
     pixel_diff = [0, 0];
     window_sz_orig = window_sz;
@@ -195,7 +195,7 @@ function [positions, time] = tracker_swc_retrack0505(video_path, img_files, pos,
                 continue 
             end
            %% 控制卡尔曼滤波开启时机
-            if tracker.tracked_frame >= 3 && kalman_flag
+            if kalman_flag
                 kalman_status = true; %true
             end
            %% 始终开启卡尔曼滤波，只是在跟踪失败时使用预测值
